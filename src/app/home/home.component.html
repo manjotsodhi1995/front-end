@@ -1,0 +1,21 @@
+ <div class="container">
+        <button style="margin-left: 90%" (click)="logout()"> Logout </button>
+        <div class="card">
+            <div class="commentbox">
+                <div class="col-12 col-sm-12 header">
+                    <h4>Write Your Message</h4> 
+                </div>
+                <div class="col-12 col-sm-12 body">
+                    <div class="comment-container">
+                            <div class="comment-form">
+                                    <app-commentbox (usercomment)="receiveComment($event)"></app-commentbox>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <br> 
+            <h4>Previously Added Messages </h4>
+            <app-comments [postComment]="comments" (countComments)="recieveCount($event)"></app-comments>
+        </div>
+        
+    </div>  

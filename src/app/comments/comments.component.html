@@ -1,0 +1,101 @@
+<div class="comments" *ngIf="postComment!==undefined">
+    <h6 *ngIf="postComment?.length<1">No Comments found</h6>
+    <ul *ngIf="postComment?.length>0">
+        <li *ngFor="let post of postComment; let i = index;">
+            <div >
+                    <p style="color: black;text-shadow: 1px 1px grey;">{{post.commentTxt}}</p>
+                    <!-- <input class="col-12 col-sm-12 " [disabled]="inedit" value="{{post.commentTxt}}"/> -->
+                    
+                    <div class="actions">
+                        <span>{{post.currentDate | date: 'dd/MM/yyyy' }}</span>
+                        <span class="divider"></span>
+                        <span>{{post.creater.display_name }}</span>
+                        <span class="divider"></span>
+                        <button class="btn btn-sm btn-info" (click)="replyComment(i)">
+                            Reply
+                        </button>
+                        &nbsp;
+                        <button [disabled]="detectuser(post)" type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#myModal"(click)="EditComment(post,i)">
+                            Edit
+                        </button>
+                </div>
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                    
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Update Comment</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div  class="form-group">
+                          <textarea  class="form-control" value = "{{valueinedit}}"  (input)="com=$event.target.value"   ></textarea>
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button  type="button" class="btn btn-default"  data-dismiss="modal"(click)="update()">Update</button>
+            
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                
+                <div class="childCommentBox">
+                    <div datacontainer></div>
+                    
+                    <ul *ngIf="post?.replyComment?.length>0">
+                        <li *ngFor="let rl of post.replyComment; let j = index;">
+                            <div class="col-12 col-sm-12 comment-container">
+                                    <p > <em> <strong>@{{post.creater.display_name}} </strong> </em>{{rl.commentTxt}}</p>
+                                    <span class="divider"></span>
+                                    <span>{{rl.currentDate | date: 'dd/MM/yyyy'}}</span>
+                                    <span class="divider"></span>
+                                    <span>{{rl.creater.display_name}}</span>
+                                    <span class="divider"></span>
+                                     <button class="btn btn-sm btn-info" (click)="replytoreplyComment(rl.commentId,i,j)">
+                                        Reply
+                                    </button> 
+                                    &nbsp;
+                                    <button [disabled]="detectuser(rl)" type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#myModal1"(click)="Editreply(rl,j)">
+                                    Edit
+                                    </button>
+                                    <br>
+                                    <div style ="padding: 2%" replytoreply></div> 
+                            </div>
+                            <div class="modal fade" id="myModal1" role="dialog">
+                              <div class="modal-dialog">
+                              
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Update Reply</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                      <div  class="form-group">
+                                    <textarea class="form-control" value = "{{valueinreply}}"  (input)="rep=$event.target.value"   ></textarea>
+                                  </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button  type="button" class="btn btn-default"  data-dismiss="modal"(click)="updatereply()">Update</button>
+                      
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                                </div>
+                                </div>
+                                
+                        </li>
+                          
+                    </ul> 
+                          
+                </div>  
+                           
+            </div>
+
+        </li>
+    </ul>
+</div>
+
+
